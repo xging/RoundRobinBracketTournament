@@ -1,0 +1,20 @@
+framework:
+  messenger:
+    transports:
+      async:
+        dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
+        options:
+          exchange:
+            name: "build_tournament"
+            type: "direct"
+          queues:
+            build_tournament_queue:
+              binding_keys:
+                - "clear_tables"
+                - "create_division"
+                - "create_team"
+                - "create_match"
+            #   arguments:
+            #     prefetch_count: 1
+    routing:
+      'App\Message\BuildTournamentMessage': async

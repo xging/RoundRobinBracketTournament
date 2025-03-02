@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Team Results</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Tournament Results</h1>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Division</th>
+                    <th>Team Name</th>
+                    <th>Matches</th>
+                    <th>Wins</th>
+                    <th>Loss</th>
+                    <th>Ties</th>
+                    <th>Goals Scored</th>
+                    <th>Goals Conceded</th>
+                    <th>Difference</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if teams_results.message is defined %}
+                    <tr>
+                        <td colspan="10" class="text-center">{{ teams_results.message }}</td>
+                    </tr>
+                {% else %}
+                    {% for result in teams_results %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ result.divisionName }}</td>
+                            <td>{{ result.teamName }}</td>
+                            <td>{{ result.matches }}</td>
+                            <td>{{ result.wins }}</td>
+                            <td>{{ result.loss }}</td>
+                            <td>{{ result.ties }}</td>
+                            <td>{{ result.goalScored }}</td>
+                            <td>{{ result.goalConceded }}</td>
+                            <td>{{ result.difference }}</td>
+                            <td>{{ result.points }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

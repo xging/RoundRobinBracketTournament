@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/php-fpm/Dockerfile
+    environment:
+      - TZ=Europe/Riga  
+    volumes:
+      - ./backend/public:/var/www/html/public
+      - ./backend/src:/var/www/html/src
+      - ./backend/vendor:/var/www/html/vendor
+      - ./backend:/var/www/html
+      - ./custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - /etc/localtime:/etc/localtime:ro
+    working_dir: /var/www/html
+    depends_on:
+      - mysql
+    container_name: symfony-php-container
+    networks:
+      - app_network
+    command: sh -c "composer install --no-interaction && \
+      php bin/console doctrine:schema:update --force && \
+      php-fpm"
+
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./backend/public:/var/www/html/public:cached
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+    container_name: symfony-nginx-container
+    networks:
+      - app_network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_LOG_BIN_TRUST_FUNCTION_CREATORS: "1"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+    ports:
+      - "3306:3306"
+    container_name: symfony-mysql-container
+    networks:
+      - app_network
+
+  # nextjs:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: ./docker/nextjs/Dockerfile
+  #   volumes:
+  #     - ./frontend:/usr/src/app:cached
+  #     - /usr/src/app/node_modules
+  #   working_dir: /usr/src/app
+  #   command: npm run dev
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     NODE_ENV: development
+  #     CHOKIDAR_USEPOLLING: "true"
+  #     WATCHPACK_POLLING: "true"
+  #   container_name: symfony-nextjs-container
+  #   depends_on:
+  #     - php
+  #   networks:
+  #     - app_network
+      
+  redis:
+    image: redis:alpine
+    container_name: symfony-redis-container
+    ports:
+      - "6379:6379"
+    networks:
+      - app_network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: symfony-rabbitmq-container
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - app_network
+
+volumes:
+  mysql_data:
+
+networks:
+  app_network:
+    driver: bridge

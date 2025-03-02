@@ -1,0 +1,26 @@
+openapi: 3.0.0
+info:
+  title: 'Match API'
+  description: 'Документация API матчей'
+  version: 1.0.0
+paths:
+  /api/matches:
+    get:
+      operationId: get_api_matcheslist
+      responses:
+        default:
+          description: ''
+  '/api/matches/{id}':
+    get:
+      operationId: get_api_matchesshow
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+

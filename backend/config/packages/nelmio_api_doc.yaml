@@ -1,0 +1,9 @@
+nelmio_api_doc:
+  documentation:
+    info:
+      title: "Match API"
+      description: "Документация API матчей"
+      version: "1.0.0"
+  areas:
+    path_patterns: # Указываем, какие маршруты включить в документацию
+      - ^/api/ # Только API версии 1

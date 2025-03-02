@@ -1,0 +1,17 @@
+/* .grid-container {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 5px;
+    text-align: center;
+  }
+  .grid-item {
+    padding: 10px;
+    border: 1px solid #000;
+    min-width: 50px;
+    min-height: 50px;
+  }
+  .header {
+    font-weight: bold;
+    background-color: #f8f9fa;
+  }
+   */
