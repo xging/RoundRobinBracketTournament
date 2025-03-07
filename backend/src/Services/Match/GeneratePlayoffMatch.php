@@ -3,8 +3,8 @@
 namespace App\Services\Match;
 
 use App\Entity\Matches;
-use App\Enum\DivisionsList;
-use App\Enum\MatchStages;
+use App\Common\Enum\DivisionsList;
+use App\Common\Enum\MatchStages;
 use App\Services\Match\Interface\GeneratePlayoffMatchInterface;
 use App\Repository\MatchesRepository;
 use App\Repository\TeamsRepository;

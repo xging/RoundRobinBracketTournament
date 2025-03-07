@@ -7,6 +7,7 @@ monolog:
     - process_match
     - build_tournament
     - message_handler
+    - cache_log
 when@dev:
   monolog:
     handlers:
@@ -31,6 +32,7 @@ when@dev:
             "process_match",
             "build_tournament",
             "message_handler",
+            "cache_log",
           ]
       match_service_error:
         type: stream
@@ -44,6 +46,7 @@ when@dev:
             "process_match",
             "build_tournament",
             "message_handler",
+            "cache_log",
           ]
 # when@test:
 #   monolog:

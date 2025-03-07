@@ -2,7 +2,7 @@
 
 namespace App\Services\Match;
 
-use App\Enum\MatchStages;
+use App\Common\Enum\MatchStages;
 use App\Repository\MatchesRepository;
 use App\Services\Match\Interface\MatchOpponentUpdaterInterface;
 

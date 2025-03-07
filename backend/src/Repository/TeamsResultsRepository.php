@@ -2,11 +2,11 @@
 
 namespace App\Repository;
 
-use App\DTO\MatchResultDTO;
+use App\Common\DTO\MatchResultDTO;
 use App\Entity\Teams;
 use App\Entity\TeamsResults;
-use App\Enum\MatchPoints;
-use App\Enum\MatchStages;
+use App\Common\Enum\MatchPoints;
+use App\Common\Enum\MatchStages;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;

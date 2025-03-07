@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Enum\MatchStages;
+use App\Common\Enum\MatchStages;
 use App\Message\AddTeamMessage;
 use App\Services\TeamService;
 use Symfony\Component\Console\Command\Command;

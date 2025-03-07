@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Entity\Divisions;
-use App\Enum\DivisionsList;
+use App\Common\Enum\DivisionsList;
 use App\Repository\DivisionsRepository;
 use App\Services\DivisionGenerator\Interface\DivisionNameGeneratorInterface;
 use App\Services\Interface\DivisionInterface;

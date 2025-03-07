@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO;
+namespace App\Common\DTO;
 
 use App\Entity\Matches;
 

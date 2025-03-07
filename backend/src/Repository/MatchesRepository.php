@@ -2,22 +2,24 @@
 
 namespace App\Repository;
 
-use App\DTO\MatchResultDTO;
+use App\Common\DTO\MatchResultDTO;
 use App\Entity\Matches;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-
+use Monolog\Attribute\WithMonologChannel;
+use Psr\Log\LoggerInterface;
 
 /**
  * @extends ServiceEntityRepository<Matches>
  */
+#[WithMonologChannel('cache_log')]
 class MatchesRepository extends ServiceEntityRepository
 {
 
     private EntityManagerInterface $em;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em, private LoggerInterface $logger)
     {
         parent::__construct($registry, Matches::class);
         $this->em = $em;

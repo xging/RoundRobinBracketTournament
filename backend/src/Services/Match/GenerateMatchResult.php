@@ -3,7 +3,7 @@
 namespace App\Services\Match;
 
 use App\Services\Match\Interface\GenerateMatchResultInterface;
-use App\DTO\MatchResultDTO;
+use App\Common\DTO\MatchResultDTO;
 use App\Entity\Matches;
 
 class GenerateMatchResult implements GenerateMatchResultInterface

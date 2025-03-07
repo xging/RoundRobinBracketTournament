@@ -2,11 +2,11 @@
 
 namespace App\Services\Match;
 
-use App\DTO\MatchResultDTO;
+use App\Common\DTO\MatchResultDTO;
 use App\Entity\Matches;
 use App\Entity\TeamsResults;
-use App\Enum\MatchPoints;
-use App\Enum\MatchStages;
+use App\Common\Enum\MatchPoints;
+use App\Common\Enum\MatchStages;
 use App\Repository\MatchesRepository;
 use App\Repository\TeamsResultsRepository;
 use App\Services\Match\Interface\AssignPointsInterface;

@@ -2,7 +2,7 @@
 
 namespace App\Services\Match;
 
-use App\DTO\MatchResultDTO;
+use App\Common\DTO\MatchResultDTO;
 use App\Entity\Matches;
 use App\Repository\MatchesRepository;
 use App\Repository\TeamsResultsRepository;

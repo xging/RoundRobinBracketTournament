@@ -2,22 +2,29 @@
 
 namespace App\Controller\API;
 
-use App\DTO\MatchDTO;
+use App\Common\DTO\MatchDTO;
 use App\Controller\API\BaseApiController;
 use App\Repository\MatchesRepository;
 use App\Repository\TeamsRepository;
 use App\Repository\TeamsResultsRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Predis\Client as RedisClient;
+use App\Common\Traits\CacheTrait;
 
 #[Route('/api/matches', name: 'api_matches')]
 class MatchesAPIController extends BaseApiController
 {
+    use CacheTrait;
+
     public function __construct(
         private MatchesRepository $matchesRepository,
         private TeamsRepository $teamsRepository,
-        private TeamsResultsRepository $teamsResultsRepository
-    ) {}
+        private TeamsResultsRepository $teamsResultsRepository,
+        RedisClient $redis
+    ) {
+        $this->setRedisClient($redis);
+    }
 
     #[Route('', name: 'list', methods: ['GET'])]
     public function list(): Response
@@ -40,10 +47,15 @@ class MatchesAPIController extends BaseApiController
     #[Route('/all', name: 'showMatches', methods: ['GET'])]
     public function showMatches(): Response
     {
-        $matches = $this->matchesRepository->getAllMatches();
+        $res = $this->getCache('Matches');
+
+        if (empty($res)) {
+            $res = $this->matchesRepository->getAllMatches();
+            $this->setCache('Matches', $res);
+        }
 
         return $this->render('matches/matches.html.twig', [
-            'matches' => $matches,
+            'matches' => $res,
         ]);
     }
 

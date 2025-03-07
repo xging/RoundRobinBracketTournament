@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enum;
+namespace App\Common\Enum;
 
 enum MatchStages: string
 {
